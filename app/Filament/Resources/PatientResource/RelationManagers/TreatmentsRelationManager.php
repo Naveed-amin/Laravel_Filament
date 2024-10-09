@@ -6,6 +6,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -39,7 +40,8 @@ class TreatmentsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('description'),
                 Tables\Columns\TextColumn::make('notes'),
-                Tables\Columns\TextColumn::make('price')
+                Tables\Columns\TextColumn::make('price')->money('EUR')->sortable(),
+                TextColumn::make('created_at')->label('Date')->dateTime(),
             ])
             ->filters([
                 //
