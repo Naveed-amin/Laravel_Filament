@@ -40,49 +40,49 @@ class PatientResource extends Resource
                 TextInput::make('number')
                     ->numeric()
                     ->step(100),
-                    TextInput::make('cardNumber')
-    ->mask(RawJs::make(<<<'JS'
+                TextInput::make('cardNumber')
+                    ->mask(RawJs::make(<<<'JS'
         $input.startsWith('34') || $input.startsWith('37') ? '9999 999999 99999' : '9999 9999 9999 9999'
     JS)),
-    TextInput::make('cost')
-    ->prefix('€')
-    ->suffixAction(
-        Action::make('copyCostToPrice')
-            ->icon('heroicon-m-clipboard')
-            ->requiresConfirmation()
-            ->action(function (Set $set, $state) {
-                $set('price', $state);
-            })
-        ),
-    Tabs::make('Tabs')
-    ->tabs([
-        Tabs\Tab::make('Tab 1')
-            ->schema([
-                TextInput::make('name')->required()->maxLength(255)->autocapitalize('words'),
-            ]),
-        Tabs\Tab::make('Tab 2')
-            ->schema([
-                TextInput::make('father_name')->required()->maxLength(255)->autocapitalize('words'),
-            ]),
-        Tabs\Tab::make('Tab 3')
-            ->schema([
-                TextInput::make('phone')->required()->maxLength(255)->autocapitalize('words'),
-            ]),
-        ]),
-        Wizard::make([
-            Wizard\Step::make('Order')
-                ->schema([
-                    // ...
+                TextInput::make('cost')
+                    ->prefix('€')
+                    ->suffixAction(
+                        Action::make('copyCostToPrice')
+                            ->icon('heroicon-m-clipboard')
+                            ->requiresConfirmation()
+                            ->action(function (Set $set, $state) {
+                                $set('price', $state);
+                            })
+                    ),
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Tab 1')
+                            ->schema([
+                                TextInput::make('name')->required()->maxLength(255)->autocapitalize('words'),
+                            ]),
+                        Tabs\Tab::make('Tab 2')
+                            ->schema([
+                                TextInput::make('father_name')->required()->maxLength(255)->autocapitalize('words'),
+                            ]),
+                        Tabs\Tab::make('Tab 3')
+                            ->schema([
+                                TextInput::make('phone')->required()->maxLength(255)->autocapitalize('words'),
+                            ]),
+                    ]),
+                Wizard::make([
+                    Wizard\Step::make('Order')
+                        ->schema([
+                            // ...
+                        ]),
+                    Wizard\Step::make('Delivery')
+                        ->schema([
+                            // ...
+                        ]),
+                    Wizard\Step::make('Billing')
+                        ->schema([
+                            // ...
+                        ]),
                 ]),
-            Wizard\Step::make('Delivery')
-                ->schema([
-                    // ...
-                ]),
-            Wizard\Step::make('Billing')
-                ->schema([
-                    // ...
-                ]),
-            ]),
                 TextInput::make('password')
                     ->password()
                     ->autocomplete('new-password')->revealable(),
